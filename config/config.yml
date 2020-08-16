@@ -1,0 +1,17 @@
+# mysql
+db:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  passwd: 2018
+  database: flask_api
+
+
+# redis
+redis:
+  host: 127.0.0.1
+  port: 6379
+  key: ip
+
+# 是否初始化数据库
+IS_INIT_DATABASE: False
