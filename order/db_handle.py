@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 
 from tools.db_tools import db
-from .models import Goods
+from order.models import GoodsOrder
 
 
+def create_order(order_num, goods_id, user_id):
 
-def add_goods(goods_name, desc, price, goods_img, stock, category):
-	goods = Goods(goods_name=goods_name, description=desc, goods_price=price, goods_img=goods_img, stock=stock, category_id=category)
+	order = GoodsOrder(order_num=order_num, goods_id=goods_id, user_id=user_id, goods_img=goods_img, stock=stock, category_id=category)
 
-	db.session.add(goods)
+	db.session.add(order)
 	db.session.commit()
 
 

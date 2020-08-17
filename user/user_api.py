@@ -5,6 +5,8 @@ import base64, time, hashlib
 from flask import request, Response
 
 from . import user
+from tools.config import Config
+from tools.db_tools import redis_cli
 from .db_handle import add_user, query_user
 
 
@@ -16,7 +18,7 @@ def signin():
 
 	result = {
 		"code": "200",
-		"msg" :	"请求成功",
+		"msg" :	"注册成功",
 		"result": True
 	}
 
@@ -66,7 +68,7 @@ def signin():
 """
 登录接口
 """
-@user.route("/login", methods=['POST'])
+@user.route("/login", methods=['POST', 'GET'])
 def login():
 
 	result = {
@@ -98,8 +100,12 @@ def login():
 			# 获取token
 			token = set_token(mobile)
 			result['msg'] = "登录成功"
+			result['uid'] = res.id
 			result['token'] = token
-			return json.dumps(result)
+
+			mobile = hashlib.md5(mobile.encode('utf8')).hexdigest()
+			redis_cli.r_set(token, mobile, 1800)
+			return json.dumps(result), 200, {"set-cookie":"token={}".format(token)}
 		else:
 			result['code'] = "4002"
 			result['msg'] = "手机号或密码错误"
@@ -117,10 +123,3 @@ def set_token(mobile):
 	API_SECRET = "SWDDAGETSAACF"
 	encrypt = mobile + str(int(time.time())) + API_SECRET
 	return hashlib.md5(encrypt.encode('utf-8')).hexdigest()
-
-
-# @user.route('/set_cookie', methods=['POST', 'GET'])
-# def cookie(mobile="18800010001"):
-# 	res = Response()
-# 	res.set_cookie("token", set_token(mobile), max_age=3600)
-# 	return res
