@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from tools.db_tools import db
-from order.models import GoodsOrder
+from tools.models import GoodsOrder
 
 
 def create_order(order_num, goods_id, user_id):

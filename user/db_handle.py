@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from tools.db_tools import db
-from user.models import User
+from tools.models import User
 
 
 def add_user(user, mobile, passwd, email):

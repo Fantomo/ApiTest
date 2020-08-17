@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from tools.db_tools import db
-from .models import Goods
-
+from tools.models import Goods
 
 
 def add_goods(goods_name, desc, price, goods_img, stock, category):
@@ -13,7 +12,21 @@ def add_goods(goods_name, desc, price, goods_img, stock, category):
 
 
 def search_goods(category, count):
-	data = db.session.query(Goods.goods_name, Goods.description, Goods.goods_price, Goods.goods_img, Goods.stock, Goods.category_id)\
+	data = db.session.query(Goods.goods_id, Goods.goods_name, Goods.description, Goods.goods_price, Goods.goods_img, Goods.stock, Goods.category_id)\
 	.filter(Goods.category_id == category).filter(Goods.is_del==0).filter(Goods.is_publish==1).filter(Goods.stock > 0)
+
+	return data.all()
+
+
+def get_goods_info(goods_id):
+	data = db.session.query(Goods.goods_id, Goods.goods_name, Goods.description, Goods.goods_price, Goods.goods_img, Goods.stock, Goods.category_id)\
+	.filter(Goods.goods_id == goods_id).filter(Goods.is_del==0).filter(Goods.is_publish==1).filter(Goods.stock > 0)
+
+	return data.all()
+
+
+def get_goods_all():
+	data = db.session.query(Goods.goods_id, Goods.goods_name, Goods.description, Goods.goods_price, Goods.goods_img, Goods.stock, Goods.category_id)\
+	.filter(Goods.is_del==0).filter(Goods.is_publish==1).filter(Goods.stock > 0)
 
 	return data.all()
