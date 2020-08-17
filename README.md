@@ -75,11 +75,9 @@ python main.py
 请求方式: POST
 请求参数: json格式
 {
-    "signin_data":{
-        "name":"Eric",
-        "passwd":"123456",
-        "email":"eric@test.com",
-        "mobile":"18800000001"
+    "login_data":{
+        "mobile":"18800000003",
+        "password":"123456"
     }
 }
 
