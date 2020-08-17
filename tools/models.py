@@ -51,7 +51,7 @@ class GoodsOrder(db.Model):
 	order_num = db.Column(db.String(129), comment="订单号")
 	goods_id = db.Column(db.Integer, comment="商品id")
 	user_id = db.Column(db.Integer, comment="购买者id")
-	status = db.Column(db.Boolean(1), comment="订单状态：1 待支付；2 已取消；3 已支付")
+	status = db.Column(db.Integer, comment="订单状态：1 待支付；2 已取消；3 已支付")
 	order_time = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False, comment="下单时间")
 	pay_time = db.Column(db.DateTime, nullable=True, onupdate=datetime.datetime.now, comment="支付时间")
 	order_price = db.Column(db.Numeric(10, 2), comment="订单金额")
